@@ -1,0 +1,20 @@
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        
+        int count=0;
+        for(int i=0;i<J.length();i++){
+            count= count + isContain(J.charAt(i),S);
+        }
+        
+        return count;
+    }
+    
+    public int isContain(char c , String s){
+        int count=0;
+        for(int i =0 ;i<s.length();i++){
+            if(c == s.charAt(i))
+                count++;
+        }
+        return count;
+    }
+}
