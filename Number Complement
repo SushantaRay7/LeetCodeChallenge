@@ -1,0 +1,25 @@
+class Solution {
+    public int findComplement(int num) {
+        
+        List<Integer> list= new LinkedList<>();
+        int complementNumber=0;
+        
+        while(num!=0){
+            list.add(num%2);
+            num=num/2;
+        }
+        
+        List <Integer> complement = new LinkedList<>();
+        for(int bit : list){
+            complement.add(bit^1);
+        }
+        Collections.reverse(complement);
+
+        int j=0;
+        for(int i= complement.size()-1;i>=0;i--){
+            complementNumber += (Math.pow(2,j)*complement.get(i));
+            j++;
+        }
+        return complementNumber;
+    }
+}
