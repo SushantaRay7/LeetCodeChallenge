@@ -1,0 +1,25 @@
+class Solution {
+    public boolean checkStraightLine(int[][] coordinates) {
+        
+        int point1[] = coordinates[0];
+        int point2[]=  coordinates[1];
+        
+        float actualSlope= getSlope(point1,point2);
+        
+        for(int i=1;i<coordinates.length;i++){
+            int p2[] = coordinates[i];
+            float slope = getSlope(point1, p2);
+            if(slope!=actualSlope)
+                return false;
+        }
+        
+        return true;
+    }
+    
+    public float getSlope(int[] point1 , int[] point2){
+        if((point1[0]- point2[0])==0)
+            return 0;
+        float slope= (float)(point2[1] - point1[1])/((point2[0] - point1[0]));
+        return slope;
+    }
+}
