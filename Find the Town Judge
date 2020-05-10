@@ -1,0 +1,32 @@
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        
+        if(N==1){
+            return 1;
+        }
+        
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        
+        for(int[] t : trust){
+            List<Integer> list= map.getOrDefault(t[0],new ArrayList<>());
+            list.add(t[1]);
+            map.put(t[0],list);
+        }
+        
+        Map<Integer,Integer> trustCount = new HashMap<>();
+        
+        for(List<Integer> list : map.values()){
+            for(int i : list){
+                trustCount.put(i, trustCount.getOrDefault(i,0)+1);
+            }
+        }
+        
+        for(int i : trustCount.keySet()){
+            if(trustCount.get(i) == N-1 && !map.containsKey(i))
+                return i;
+        }
+        return -1;
+        
+        
+    }
+}
