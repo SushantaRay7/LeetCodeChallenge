@@ -1,0 +1,31 @@
+class Solution {
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        Map<Integer, Set<Integer>> hm = new HashMap<>();
+        int a,b;
+        for(int[] d : dislikes) {
+            a = d[0];
+            b = d[1];
+            hm.putIfAbsent(a, new HashSet<>());
+            hm.putIfAbsent(b, new HashSet<>());
+            hm.get(a).add(b);
+            hm.get(b).add(a);
+        }
+        int[] colors = new int[N+1];
+        for(int i=1; i<=N; i++) {
+            if(colors[i] == 0 && !dfs(colors, 1, i, hm))
+                return false;
+        }
+        return true;
+    }
+    private boolean dfs(int[] colors, int color, int node, Map<Integer, Set<Integer>> hm) {
+        if(colors[node] != 0)
+            return colors[node] == color;
+        colors[node] = color;
+        if(hm.get(node) == null)
+            return true;
+        for(int next : hm.get(node))
+            if(!dfs(colors, -color, next, hm))
+                return false;
+        return true;
+    }
+}
